@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "ts-node-dev --clear ./src/app.ts",
+    "start": "ts-node-dev --clear ./src/app.ts",
     "build": "tsc -w"
   },
   "author": "Sergio de la Mata Moratilla",
