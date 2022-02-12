@@ -1,13 +1,21 @@
 import express, { Router, Request, Response } from "express";
 import {createClient} from "redis";
+import { Hosts } from "../../server.hosts";
+import { Ports } from "../../server.ports";
 
 const router: Router = express.Router();
+
+const defaultOptions = {
+  host: Hosts.RedisLogin,
+  port: Ports.Redis,
+  keyPrefix: "url-"
+};
 
 router.get("/logged/:email", async (req: Request, res: Response) => {
   var value;
   if(req.params.email != undefined)
   {
-    const client = createClient();
+    const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
     await client.connect();
     const response = await client.get(req.params.email);
     value = JSON.parse(response);
@@ -28,7 +36,7 @@ router.get("/logged/:email", async (req: Request, res: Response) => {
 });
 
 router.post("/login", async (req: Request, res: Response) => {
-  const client = createClient();
+  const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
   await client.connect();
   const value = {
     userId : req.body.userId,
@@ -44,7 +52,7 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 router.delete("/logout/:email", async (req: Request, res: Response) => {
-  const client = createClient();
+  const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
   await client.connect();
   await client.expire(req.params.email, 1);//El tiempo de expiración va en segundos
   res.header("Content-Type", "application/json");
@@ -56,3 +64,7 @@ router.delete("/logout/:email", async (req: Request, res: Response) => {
 
 
 export default router;
+function port(arg0: { host: any; }, arg1: { Hosts: typeof Hosts; "": any; }, port: any, $: any, arg4: { Ports: typeof Ports; "": any; }) {
+  throw new Error("Function not implemented.");
+}
+
