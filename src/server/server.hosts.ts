@@ -1,3 +1,3 @@
 export enum Hosts {
-    RedisLogin = "redisservice2"
+    RedisLogin = "redis"
 }
