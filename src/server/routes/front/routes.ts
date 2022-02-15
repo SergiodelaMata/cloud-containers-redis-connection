@@ -13,7 +13,7 @@ const defaultOptions = {
 
 router.get("/logged/:email", async (req: Request, res: Response) => {
   var value;
-  if(req.params.email != undefined)
+  if(req.params.email != "undefined")
   {
     console.log("Version 1: Email Logged: " + req.params.email);
     const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
