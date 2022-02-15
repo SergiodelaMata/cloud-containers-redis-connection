@@ -74,7 +74,7 @@ router.put("/block/:email", async (req: Request, res: Response) => {
 
 router.get("/isBlock/:email", async (req: Request, res: Response) => {
   var value;
-  if(req.params.email != undefined)
+  if(req.params.email != "undefined")
   {
     const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
     await client.connect();
