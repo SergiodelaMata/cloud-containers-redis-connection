@@ -9,6 +9,7 @@ router.get("/logged/:email", async (req: Request, res: Response) => {
   var value;
   if(req.params.email != undefined)
   {
+    console.log("Version 2: Email Logged: " + req.params.email);
     const client = createClient({url:`redis://${Hosts.RedisLogin}:${Ports.Redis}`});
     await client.connect();
     const response = await client.get(req.params.email);
